@@ -21,15 +21,22 @@ def create_user():
        response = {
            'id': str(id),
            'username': username,
-           'password': password,
-           'email': email
-       }
+            'pasword': hashed_password,
+            'email': email
+        }
        return response
-    else:
-        {'message': 'received'}
-        
+   else:
+       not_found()
 
-    return {'message': 'received'}
+   return {'message': 'received'}
+
+@app.errorhandler(404)
+def not_found(error=None):
+    message = {
+        'message': 'Resource not found' + request.url,
+        'status': 404
+    }
+    return response
 
 if __name__ == "__main__":
     app.run(debug=True)
